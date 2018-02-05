@@ -86,7 +86,7 @@ tagName =
   map String.toLower (regex "[a-zA-Z][a-zA-Z0-9\\-]*")
 
 
-specialCaseAttributes : Dict String String
+specialCaseAttributes : Dict.Dict String String
 specialCaseAttributes =
   Dict.fromList
     [ ("viewbox", "viewBox")
