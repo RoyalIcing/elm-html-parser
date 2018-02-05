@@ -86,9 +86,26 @@ tagName =
   map String.toLower (regex "[a-zA-Z][a-zA-Z0-9\\-]*")
 
 
+specialCaseAttributes : Dict String String
+specialCaseAttributes =
+  Dict.fromList
+    [ ("viewbox", "viewBox")
+    ]
+
+
+normalizeAttribute : String -> String
+normalizeAttribute input =
+  let
+    lower =
+      String.toLower input
+  in
+    Dict.get lower specialCaseAttributes
+      |> Maybe.withDefault lower
+
+
 attributeName : Parser s String
 attributeName =
-  map String.toLower (regex "[a-zA-Z][a-zA-Z0-9:\\-]*")
+  map normalizeAttribute (regex "[a-zA-Z][a-zA-Z0-9:\\-]*")
 
 
 attributeQuotedValue : Parser s String
